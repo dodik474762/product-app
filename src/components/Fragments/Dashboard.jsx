@@ -1,7 +1,8 @@
+import { Provider } from "react-redux";
 import Label from "../Elements/Input/Label";
-
-
 const Dashboard = () => {
+
+    
     return (
         <div className="flex flex-col">
             <div className="flex flex-row w-full">

@@ -7,33 +7,37 @@ import LoginPage from './pages/login.jsx'
 import RegisterPage from './pages/register.jsx'
 import NotFoundPage from './pages/404.jsx'
 import DashboardPage from './pages/dashboard.jsx'
+import { Provider } from 'react-redux';
+import store from './redux/store.js'
 
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <div>Product App</div>,
-    errorElement: <NotFoundPage/>
+    errorElement: <NotFoundPage />
   },
   {
     path: '/login',
-    element: <LoginPage/>,
-    errorElement: <NotFoundPage/>
+    element: <LoginPage />,
+    errorElement: <NotFoundPage />
   },
   {
     path: '/register',
-    element: <RegisterPage/>,
-    errorElement: <NotFoundPage/>
+    element: <RegisterPage />,
+    errorElement: <NotFoundPage />
   },
   {
     path: '/dashboard',
-    element: <DashboardPage/>,
-    errorElement: <NotFoundPage/>
+    element: <DashboardPage />,
+    errorElement: <NotFoundPage />
   },
-])  
+])
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router}/>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>,
 )
