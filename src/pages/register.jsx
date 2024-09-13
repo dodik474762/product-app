@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import FormRegister from "../components/Fragments/FormRegister";
 import AuthLayout from "../components/Layouts/AuthLayout";
+import { useEffect } from "react";
 
 const RegisterPage = () => {
+
   return (
     <AuthLayout title="Register">
       <FormRegister />

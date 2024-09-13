@@ -16,7 +16,7 @@ import ProductFormPage from './pages/product-form.jsx'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <div>Product App</div>,
+    element: <DashboardPage />,
     errorElement: <NotFoundPage />
   },
   {
