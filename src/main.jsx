@@ -9,6 +9,8 @@ import NotFoundPage from './pages/404.jsx'
 import DashboardPage from './pages/dashboard.jsx'
 import { Provider } from 'react-redux';
 import store from './redux/store.js'
+import ProductPage from './pages/product.jsx'
+import ProductFormPage from './pages/product-form.jsx'
 
 
 const router = createBrowserRouter([
@@ -30,6 +32,21 @@ const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <DashboardPage />,
+    errorElement: <NotFoundPage />
+  },
+  {
+    path: '/master/product',
+    element: <ProductPage />,
+    errorElement: <NotFoundPage />
+  },
+  {
+    path: '/master/product/add-product',
+    element: <ProductFormPage />,
+    errorElement: <NotFoundPage />
+  },
+  {
+    path: '/master/product/edit-product/:id',
+    element: <ProductFormPage />,
     errorElement: <NotFoundPage />
   },
 ])

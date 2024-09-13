@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 
 const AppLayout = (props) => {
     const {children} = props;
-
     const [username, setUsername] = useState("");
 
     useEffect(() => {
@@ -52,7 +52,7 @@ const AppLayout = (props) => {
                             <p className="text-2xl leading-6 text-white">Product App</p>
                         </div>
                         <div className="mt-6 flex flex-col justify-start items-center  pl-4 w-full border-gray-600 border-b space-y-3 pb-5 ">
-                            <button className="flex jusitfy-start items-center space-x-6 w-full  focus:outline-none  focus:text-indigo-400  text-white rounded ">
+                            <Link to={'/dashboard'} className="flex jusitfy-start items-center space-x-6 w-full  focus:outline-none  focus:text-indigo-400  text-white rounded ">
                                 <svg className="fill-stroke " width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9 4H5C4.44772 4 4 4.44772 4 5V9C4 9.55228 4.44772 10 5 10H9C9.55228 10 10 9.55228 10 9V5C10 4.44772 9.55228 4 9 4Z" stroke="currentColor" strokeWidth={1.5} strokeLinecap={"round"} strokeLinejoin={"round"} />
                                     <path d="M19 4H15C14.4477 4 14 4.44772 14 5V9C14 9.55228 14.4477 10 15 10H19C19.5523 10 20 9.55228 20 9V5C20 4.44772 19.5523 4 19 4Z" stroke="currentColor" strokeWidth={1.5} strokeLinecap={"round"} strokeLinejoin={"round"} />
@@ -60,7 +60,7 @@ const AppLayout = (props) => {
                                     <path d="M19 14H15C14.4477 14 14 14.4477 14 15V19C14 19.5523 14.4477 20 15 20H19C19.5523 20 20 19.5523 20 19V15C20 14.4477 19.5523 14 19 14Z" stroke="currentColor" strokeWidth={1.5} strokeLinecap={"round"} strokeLinejoin={"round"} />
                                 </svg>
                                 <p className="text-base leading-4 ">Dashboard</p>
-                            </button>
+                            </Link>
                         </div>
                         <div className="flex flex-col justify-start items-center   px-6 border-b border-gray-600 w-full  ">
                             <button onClick={() => {}} className="focus:outline-none focus:text-indigo-400 text-left  text-white flex justify-between items-center w-full py-5 space-x-14  ">
@@ -70,7 +70,7 @@ const AppLayout = (props) => {
                                 </svg>
                             </button>
                             <div id="menu1" className="flex justify-start  flex-col w-full md:w-auto items-start pb-1 ">
-                                <button className="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2 w-full md:w-52">
+                                <Link to="/master/product" className="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2 w-full md:w-52">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M14 8.00002C15.1046 8.00002 16 7.10459 16 6.00002C16 4.89545 15.1046 4.00002 14 4.00002C12.8954 4.00002 12 4.89545 12 6.00002C12 7.10459 12.8954 8.00002 14 8.00002Z" stroke="currentColor" strokeWidth={1.5} strokeLinecap={"round"} strokeLinejoin={"round"} />
                                         <path d="M4 6H12" stroke="currentColor" strokeWidth={1.5} strokeLinecap={"round"} strokeLinejoin={"round"} />
@@ -83,7 +83,7 @@ const AppLayout = (props) => {
                                         <path d="M19 18H20" stroke="currentColor" strokeWidth={1.5} strokeLinecap={"round"} strokeLinejoin={"round"} />
                                     </svg>
                                     <p className="text-base leading-4  ">Products</p>
-                                </button>
+                                </Link>
                             </div>
                         </div>
                         <div className="flex flex-col justify-between items-center h-full pb-6   px-6  w-full  space-y-96 ">
