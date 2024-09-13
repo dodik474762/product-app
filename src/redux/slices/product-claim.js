@@ -29,8 +29,11 @@ const productClaimSlice = createSlice({
       }
 
     },
+    filter (state, action) {
+      return state.filter((item) => item._id !== action.payload._id)
+    }
   },
 });
 
-export const { getProduct } = productClaimSlice.actions;
+export const { getProduct, getFilter } = productClaimSlice.actions;
 export default productClaimSlice.reducer;
