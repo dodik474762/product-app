@@ -5,14 +5,27 @@ const productClaimSlice = createSlice({
   initialState: [],
   reducers: {
     getProduct(state, action) {
-      state.push({
-        id: action.payload.id,
-        product_name: action.payload.product_name,
-        product_code: action.payload.product_code,
-        waranty_date: action.payload.waranty_date,
-        created_by: action.payload.created_by,
-        approved_date: action.payload.approved_date,
-      });
+      const item = state.find(
+        (item) => item._id === action.payload._id
+      )
+
+      if (item) {
+        item.product_name = action.payload.product_name
+        item.product_code = action.payload.product_code
+        item.waranty_date = action.payload.waranty_date
+        item.created_by = action.payload.created_by
+        item.approved_date = action.payload.approved_date
+      }else{
+        state.push({
+          _id: action.payload._id,
+          product_name: action.payload.product_name,
+          product_code: action.payload.product_code,
+          waranty_date: action.payload.waranty_date,
+          created_by: action.payload.created_by,
+          approved_date: action.payload.approved_date,
+        });
+      }
+
     },
   },
 });
