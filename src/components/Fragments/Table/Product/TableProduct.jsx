@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 import Button from "../../../Elements/Button";
 import { useDispatch } from "react-redux";
+import { getProduct, getFilter } from "../../../../redux/slices/product";
+import { deleteProduct } from "../../../../services/product/product-service";
 
 const TableProduct = (props) => {
     const { products } = props;
@@ -17,13 +19,13 @@ const TableProduct = (props) => {
     const handleDelete = async (product) => {
         const confirms = confirm(`Are you delete edit this product?`);
         if (confirms) {
-            // const approveReq = await approve(product._id, status);
-            // if (approveReq.statusCode == 200) {
-            //     alert(`${status} Success`);
-            //     dispatch(getProduct(approveReq.data));
-            // } else {
-            //     alert(approveReq.message);
-            // }
+            const deleteReq = await deleteProduct(product._id);
+            if (deleteReq.statusCode == 200) {
+                alert(`Deleted Success`);
+                dispatch(getFilter(product));
+            } else {
+                alert(deleteReq);
+            }
         }
     };
 

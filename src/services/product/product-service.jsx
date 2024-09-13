@@ -46,3 +46,21 @@ export const submit = (data) => {
         resolve(response);
     }).catch(error => resolve(error));
 }
+
+export const deleteProduct = (id) => {
+    return new Promise(async (resolve, reject) => {
+        const request = await fetch(`${baseUrl}/delete`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                id: id
+            })
+        })
+
+        const response = await request.json();
+        resolve(response);
+    }).catch(error => resolve(error));
+}
