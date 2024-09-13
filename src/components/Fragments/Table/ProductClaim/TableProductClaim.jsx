@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import Button from "../../../Elements/Button";
 import { useDispatch } from "react-redux";
-import { approve, getProductClaim } from "../../../../services/product-claim/product-claim-services";
+import { approve } from "../../../../services/product-claim/product-claim-services";
 import { getProduct } from "../../../../redux/slices/product-claim";
 
 const TableProductClaim = (props) => {
@@ -9,23 +9,13 @@ const TableProductClaim = (props) => {
     const dispatch = useDispatch();
     const product = useSelector((state) => state.productClaim);
 
-    const getProductClaims = async () => {
-        const productRequest = await getProductClaim();
-        if (productRequest.statusCode == 200) {
-            for (let index = 0; index < productRequest.data.length; index++) {
-                const element = productRequest.data[index];
-                dispatch(getProduct(element));
-            }
-        }
-    };
-
     const handleApprove = async (product, status) => {
         const confirms = confirm(`Are you sure ${status} this product?`);
         if (confirms) {
             const approveReq = await approve(product._id, status);
             if (approveReq.statusCode == 200) {
                 alert(`${status} Success`);
-                getProductClaims();
+                dispatch(getProduct(approveReq.data));
             } else {
                 alert(approveReq.message);
             }
