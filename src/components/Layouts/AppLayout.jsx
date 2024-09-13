@@ -5,15 +5,18 @@ import { Link } from "react-router-dom";
 const AppLayout = (props) => {
     const {children} = props;
     const [username, setUsername] = useState("");
+    const [roles, setRoles] = useState("");
 
     useEffect(() => {
         setUsername(localStorage.getItem("username"));
+        setRoles(localStorage.getItem("roles"));
     }, []);
 
 
     const handleLogout = () => {
         localStorage.removeItem("username");
         localStorage.removeItem("token");
+        localStorage.removeItem("roles");
         window.location.href = "/login";
     }
 

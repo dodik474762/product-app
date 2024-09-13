@@ -3,11 +3,13 @@ import Button from "../../../Elements/Button";
 import { useDispatch } from "react-redux";
 import { approve } from "../../../../services/product-claim/product-claim-services";
 import { getProduct } from "../../../../redux/slices/product-claim";
+import { useEffect, useState } from "react";
 
 const TableProductClaim = (props) => {
     const { products } = props;
     const dispatch = useDispatch();
     const product = useSelector((state) => state.productClaim);
+    const [roles, setRoles] = useState("");
 
     const handleApprove = async (product, status) => {
         const confirms = confirm(`Are you sure ${status} this product?`);
@@ -21,6 +23,10 @@ const TableProductClaim = (props) => {
             }
         }
     };
+
+    useEffect(() => {
+        setRoles(localStorage.getItem("roles"));
+    }, [roles]);
 
     return (
         <table className="min-w-full border-collapse block md:table">
@@ -49,9 +55,15 @@ const TableProductClaim = (props) => {
                                     {
                                         item.approved_date == null ? (
                                             <>
-                                                <Button onClick={() => handleApprove(item, 'approve')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded">Approve</Button>
-                                                &nbsp;
-                                                <Button onClick={() => handleApprove(item, 'reject')} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded">Reject</Button>
+                                                {
+                                                    roles.includes("staff") ? (
+                                                        <>
+                                                            <Button onClick={() => handleApprove(item, 'approve')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded">Approve</Button>
+                                                            &nbsp;
+                                                            <Button onClick={() => handleApprove(item, 'reject')} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded">Reject</Button>
+                                                        </>
+                                                    ) : null
+                                                }
                                             </>
                                         ) : null
                                     }

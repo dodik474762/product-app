@@ -9,49 +9,53 @@ import TableProduct from "./Table/Product/TableProduct";
 import { Link } from "react-router-dom";
 
 const Product = () => {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    const [roles, setRoles] = useState("");
 
-  const getProducts = async () => {
-    const productRequest = await getProductItem();
-    if (productRequest.statusCode == 200) {
-      for (let index = 0; index < productRequest.data.length; index++) {
-        const element = productRequest.data[index];
-        dispatch(getProduct(element));
-      }
-    }
-  };
+    const getProducts = async () => {
+        const productRequest = await getProductItem();
+        if (productRequest.statusCode == 200) {
+            for (let index = 0; index < productRequest.data.length; index++) {
+                const element = productRequest.data[index];
+                dispatch(getProduct(element));
+            }
+        }
+    };
 
-  useEffect(() => {
-    getProducts();
-  }, []);
+    useEffect(() => {
+        setRoles(localStorage.getItem("roles"));
+        getProducts();
+    }, []);
 
-  return (
-    <div className="flex flex-col">
-      <div className="flex flex-row w-full">
-        <div className="flex-1">
-          <Label title="Dashboard "></Label>
+    return (
+        <div className="flex flex-col">
+            <div className="flex flex-row w-full">
+                <div className="flex-1">
+                    <Label title="Dashboard "></Label>
+                </div>
+                <div className="flex-1 text-right">
+                    <Label title="Product"></Label>
+                </div>
+            </div>
+            <hr />
+            <br />
+            <div className="flex w-full">
+                <div className="flex flex-col w-full">
+                    {
+                        roles.includes("staff") ? <Link
+                            to="/master/product/add-product"
+                            className="bg-blue-500 w-40 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
+                            onClick={() => { }}
+                        >
+                            Add Product
+                        </Link> : null
+                    }
+                    <br />
+                    <TableProduct products={[]} />
+                </div>
+            </div>
         </div>
-        <div className="flex-1 text-right">
-          <Label title="Product"></Label>
-        </div>
-      </div>
-      <hr />
-      <br />
-      <div className="flex w-full">
-        <div className="flex flex-col w-full">
-          <Link
-            to="/master/product/add-product"
-            className="bg-blue-500 w-40 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
-            onClick={() => {}}
-          >
-            Add Product
-          </Link>
-          <br />
-          <TableProduct products={[]} />
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Product;

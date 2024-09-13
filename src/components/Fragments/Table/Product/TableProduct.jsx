@@ -3,11 +3,14 @@ import Button from "../../../Elements/Button";
 import { useDispatch } from "react-redux";
 import { getProduct, getFilter } from "../../../../redux/slices/product";
 import { deleteProduct } from "../../../../services/product/product-service";
+import { useEffect, useState } from "react";
+import { claimProduct } from "../../../../services/product-claim/product-claim-services";
 
 const TableProduct = (props) => {
     const { products } = props;
     const dispatch = useDispatch();
     const product = useSelector((state) => state.product);
+    const [roles, setRoles] = useState("");
 
     const handleEdit = async (product) => {
         const confirms = confirm(`Are you sure edit this product?`);
@@ -17,7 +20,7 @@ const TableProduct = (props) => {
     };
 
     const handleDelete = async (product) => {
-        const confirms = confirm(`Are you delete edit this product?`);
+        const confirms = confirm(`Are you delete this product?`);
         if (confirms) {
             const deleteReq = await deleteProduct(product._id);
             if (deleteReq.statusCode == 200) {
@@ -28,6 +31,23 @@ const TableProduct = (props) => {
             }
         }
     };
+
+    const handleClaim = async (product) => {
+        const confirms = confirm(`Are you claim this product?`);
+        if (confirms) {
+            const claimReq = await claimProduct(product);
+            if (claimReq.statusCode == 200) {
+                alert(`Claim Success`);
+                window.location.href = `/dashboard`;
+            } else {
+                alert(claimReq);
+            }
+        }
+    };
+
+    useEffect(() => {
+        setRoles(localStorage.getItem("roles"));
+    }, []);
 
     return (
         <table className="min-w-full border-collapse block md:table">
@@ -51,9 +71,17 @@ const TableProduct = (props) => {
                                 <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell text-sm">{item.created_by == null ? "-" : item.created_by.toUpperCase()}</td>
                                 <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell text-sm">
                                     <span className="inline-block w-1/3 md:hidden font-bold">Actions</span>
-                                    <Button onClick={() => handleEdit(item)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded">Edit</Button>
-                                    &nbsp;
-                                    <Button onClick={() => handleDelete(item)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded">Delete</Button>
+                                    {
+                                        roles.includes("staff") ? (
+                                            <>
+                                                <Button onClick={() => handleEdit(item)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded">Edit</Button>
+                                                &nbsp;
+                                                <Button onClick={() => handleDelete(item)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded">Delete</Button>
+                                            </>
+                                        ) : (
+                                            <Button onClick={() => handleClaim(item)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded">Klaim</Button>
+                                        )
+                                    }
                                 </td>
                             </tr>
                         )

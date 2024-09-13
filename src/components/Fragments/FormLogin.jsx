@@ -11,15 +11,13 @@ const FormLogin = () => {
         if (username === "" || password === "") {
             alert("Please enter your username and password");
             return;
-        }
-
-
-        // window.location.href = "/";      
+        }  
 
         const loginRequest = await login(username, password);
         if (loginRequest.statusCode === 200) {
             if (loginRequest.is_valid) {
                 localStorage.setItem("username", username);
+                localStorage.setItem("roles", loginRequest.data.roles);
                 localStorage.setItem("token", loginRequest.token);
                 alert("Login Successful");
                 window.location.href = "/dashboard";
