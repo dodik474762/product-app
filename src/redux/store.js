@@ -7,7 +7,7 @@ export const store = configureStore({
   },
 });
 
-console.log("onCreate store", store.getState());
+console.log("onCreate store");
 store.subscribe(() => {
   console.log("store changed: ", store.getState());
 });
